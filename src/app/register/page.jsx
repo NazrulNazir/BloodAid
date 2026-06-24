@@ -14,20 +14,25 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { useRef } from "react";
 import { FaCamera } from "react-icons/fa";
+import { getDistrict, getUpazila } from "@/lib/api";
 // import { toast } from 'react-toastify';
 
 const bloodGroups = ["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"];
-const districts = ["Dhaka", "Rajshahi", "Bogura", "Khulna", "Chattogram"];
-const upazilas = ["Sadar", "Uttara", "Savar", "Natore Sadar"];
 const genders = ["Male", "Female", "Other"];
 
 const RegisterPage = () => {
   const fileInputRef = useRef(null);
+  //data
+  const [districts, setDistricts] = useState([]);
+  const [upazilas, setUpazilas] = useState([]);
+  const [selectedDistrict, setSelectedDistrict] = useState("");
+  const [selectedUpazila, setSelectedUpazila] = useState("");
+  const [allUpazilas, setAllUpazilas] = useState([]);
 
   const router = useRouter();
   const [bloodGroup, setBloodGroup] = useState("");
@@ -43,6 +48,23 @@ const RegisterPage = () => {
   const [imageUrl, setImageUrl] = useState("");
   const [uploading, setUploading] = useState(false);
   //  const [errPass, setErrPass] = useState("");
+
+  useEffect(() => {
+    const districtFUn = async () => {
+      const district = await getDistrict();
+      setDistricts(district);
+
+      const upazila = await getUpazila();
+      setAllUpazilas(upazila);
+    };
+    districtFUn();
+  }, []);
+
+  // const filteredUpazilas = upzla.filter(
+  //   (upazila) => upazila.district_id === Number(districts.map((d) => d.id)),
+  // );
+  // console.log(filteredUpazilas);
+  // setUpazilas(filteredUpazilas);
 
   const validatePassword = (password) => {
     const hasMinLength = password.length >= 8;
@@ -117,12 +139,12 @@ const RegisterPage = () => {
       upazila: userData.upazila,
       role: userData.role,
       bloodGroup: userData.bloodGroup,
-      callbackURL: "/login",
+      // callbackURL: "/login",
     });
     console.log(data);
     if (data) {
       toast.success("Create account Successfullly");
-      router.push("/login");
+      // router.push("/login");
     }
 
     if (error) {
@@ -248,9 +270,27 @@ const RegisterPage = () => {
                   {/* District */}
                   <div>
                     <Select
-                      isRequired
-                      selectedKey={district}
-                      onSelectionChange={(key) => setDistrict(String(key))}
+                      selectedKeys={selectedDistrict ? [selectedDistrict] : []}
+                      onSelectionChange={(key) => {
+                        const districtId = String(key);
+
+                        setSelectedDistrict(districtId);
+
+                        const districtObj = districts.find(
+                          (d) => String(d.id) === districtId,
+                        );
+
+                        setDistrict(districtObj?.name || "");
+
+                        const filteredUpazilas = allUpazilas.filter(
+                          (u) => Number(u.district_id) === Number(districtId),
+                        );
+
+                        setUpazilas(filteredUpazilas);
+
+                        setSelectedUpazila("");
+                        setUpazila("");
+                      }}
                     >
                       <Label>District</Label>
 
@@ -262,8 +302,8 @@ const RegisterPage = () => {
                       <Select.Popover>
                         <ListBox>
                           {districts.map((d) => (
-                            <ListBox.Item key={d} id={d}>
-                              {d}
+                            <ListBox.Item key={d.id} id={d.id}>
+                              {d.name}
                             </ListBox.Item>
                           ))}
                         </ListBox>
@@ -275,9 +315,18 @@ const RegisterPage = () => {
                   {/* Upazila */}
                   <div>
                     <Select
-                      isRequired
-                      selectedKey={upazila}
-                      onSelectionChange={(key) => setUpazila(String(key))}
+                      selectedKeys={selectedUpazila ? [selectedUpazila] : []}
+                      onSelectionChange={(key) => {
+                        const upazilaId = String(key);
+
+                        setSelectedUpazila(upazilaId);
+
+                        const upazilaObj = upazilas.find(
+                          (u) => String(u.id) === upazilaId,
+                        );
+
+                        setUpazila(upazilaObj?.name || "");
+                      }}
                     >
                       <Label>Upazila</Label>
 
@@ -289,8 +338,8 @@ const RegisterPage = () => {
                       <Select.Popover>
                         <ListBox>
                           {upazilas.map((u) => (
-                            <ListBox.Item key={u} id={u}>
-                              {u}
+                            <ListBox.Item key={u.id} id={u.id}>
+                              {u.name}
                             </ListBox.Item>
                           ))}
                         </ListBox>
