@@ -36,6 +36,9 @@ export const auth = betterAuth({
             image: {
             required: false,
             },
+            status: {
+                defaultValue: 'active'
+            }
         },
     },
   database: mongodbAdapter(db, {
