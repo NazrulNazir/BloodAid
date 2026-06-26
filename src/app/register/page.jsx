@@ -20,7 +20,6 @@ import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { useRef } from "react";
 import { FaCamera } from "react-icons/fa";
 import { getDistrict, getUpazila } from "@/lib/api";
-// import { toast } from 'react-toastify';
 
 const bloodGroups = ["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"];
 const genders = ["Male", "Female", "Other"];
@@ -59,12 +58,6 @@ const RegisterPage = () => {
     };
     districtFUn();
   }, []);
-
-  // const filteredUpazilas = upzla.filter(
-  //   (upazila) => upazila.district_id === Number(districts.map((d) => d.id)),
-  // );
-  // console.log(filteredUpazilas);
-  // setUpazilas(filteredUpazilas);
 
   const validatePassword = (password) => {
     const hasMinLength = password.length >= 8;

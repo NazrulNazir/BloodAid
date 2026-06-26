@@ -25,7 +25,7 @@ const DashboardSidebar = async () => {
   console.log(user);
   const admin = [
     { icon: Circles4Square, label: "Dashboard", link: "/dashboard/admin" },
-    { icon: Person, label: "Profile", link: "/dashboard/admin/profile" },
+    { icon: Person, label: "Profile", link: "/dashboard/profile" },
     {
       icon: HiUserGroup,
       label: "All User",
@@ -39,7 +39,7 @@ const DashboardSidebar = async () => {
   ];
   const volunteer = [
     { icon: Circles4Square, label: "Dashboard", link: "/dashboard/volunteer" },
-    { icon: Person, label: "Profile", link: "/dashboard/volunteer/profile" },
+    { icon: Person, label: "Profile", link: "/dashboard/profile" },
     {
       icon: BiSolidDonateHeart,
       label: "All Blood Donation Requests",
@@ -48,7 +48,7 @@ const DashboardSidebar = async () => {
   ];
   const donor = [
     { icon: Circles4Square, label: "Dashboard", link: "/dashboard/donor" },
-    { icon: Person, label: "Profile", link: "/dashboard/donor/profile" },
+    { icon: Person, label: "Profile", link: "/dashboard/profile" },
     {
       icon: BiSolidDonateHeart,
       label: "My Donation Requests",
@@ -79,9 +79,9 @@ const DashboardSidebar = async () => {
       <aside>
         <nav className="hidden sm:flex flex-col justify-between pb-10 gap-2 w-65 sticky top-0 h-screen">
          <div>
-           <h1 className="text-4xl text-center font-bold px-3 py-4 bg-gray-200 mb-2">
+           <Link href={`/`} className="text-4xl text-center font-bold px-3 py-4 bg-gray-200 mb-2 block">
             Blood<span className="text-red-500">Aid</span>
-          </h1>
+          </Link>
           {menuItems.map((item) => (
             <Link
               key={item.label}

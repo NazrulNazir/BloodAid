@@ -20,14 +20,14 @@ export default async function DashboardLayout({ children }) {
         </div>
         <div className="flex-1">
           {/* navbar  */}
-          <div variant="secondary" className="flex justify-between items-center sm:px-5 pr-5 bg-gray-200 w-full py-3 sticky top-0">
+          <div variant="secondary" className="flex justify-between items-center sm:px-5 pr-5 bg-gray-200 w-full py-3 sticky top-0 z-10">
             <div>
               <h2 className="font-bold text-2xl">Dashboard</h2>
               <p className="text-xs text-default-500 font-semibold text-gray-500">WELCOME BACK , {user?.role?.toUpperCase()}</p>
             </div>
             <div className="font-bold text-red-500">{user?.role?.toUpperCase()}</div>
           </div>
-          <main className="mt-5 sm:ml-5">{children}</main>
+          <main className="">{children}</main>
         </div>
       </div>
     </div>
