@@ -31,8 +31,11 @@ export default function NavBar() {
 
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
-
   const isActive = (href) => pathname === href;
+
+  if (pathname.includes("dashboard")) {
+    return null;
+  }
 
   const navItems = [
     { name: "Home", href: "/" },
@@ -74,19 +77,18 @@ export default function NavBar() {
 
             {/* Menu Items */}
             <div className="space-y-1 ">
-              <Button
-                variant="light"
-                className="w-full justify-start hover:bg-gray-100 rounded-md hover:text-red-600"
-                startContent={<MdDashboard size={18} />}
+              <Link
+                href={`/dashboard/${user?.role.toLowerCase()}`}
+                className="flex items-center gap-1 py-2 pl-3 w-full justify-start hover:bg-gray-100 rounded-md hover:text-red-600"
               >
-                <MdDashboard />
+                <MdDashboard size={18} />
                 Dashboard
-              </Button>
+              </Link>
 
               <Button
                 onClick={() => {
                   signOut();
-                  toast.info("Logout successfully..");
+                  toast.success("Logout successfully..");
                 }}
                 variant="light"
                 color="danger"
@@ -138,17 +140,17 @@ export default function NavBar() {
               {user ? (
                 <div>{profileModal}</div>
               ) : (
-               <div className="flex">
-                 <Link
-                  href="/login"
-                  className=" bg-red-500 text-white px-4 py-2 rounded-full hover:bg-red-600"
-                >
-                  <span className="flex items-center gap-2">
-                    <FaRegUserCircle />
-                    Login
-                  </span>
-                </Link>
-               </div>
+                <div className="flex">
+                  <Link
+                    href="/login"
+                    className=" bg-red-500 text-white px-4 py-2 rounded-full hover:bg-red-600"
+                  >
+                    <span className="flex items-center gap-2">
+                      <FaRegUserCircle />
+                      Login
+                    </span>
+                  </Link>
+                </div>
               )}
             </div>
 
