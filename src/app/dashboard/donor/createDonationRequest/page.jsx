@@ -2,27 +2,45 @@
 
 import { useEffect, useState } from "react";
 
-import { Button, Description, FieldError, Input, Label, ListBox, Select, TextField, } from "@heroui/react";
+import {
+  Button,
+  Description,
+  FieldError,
+  Input,
+  Label,
+  ListBox,
+  Select,
+  TextArea,
+  TextField,
+} from "@heroui/react";
 
-import { CalendarDays, Clock3, Droplets, Hospital, Mail, MapPin, User, } from "lucide-react";
+import {
+  CalendarDays,
+  Clock3,
+  Droplets,
+  Hospital,
+  Mail,
+  MapPin,
+  User,
+} from "lucide-react";
 import { useSession } from "@/lib/auth-client";
 import { getDistrict, getUpazila } from "@/lib/api";
+import toast from "react-hot-toast";
 
 export default function CreateDonationRequest() {
   //==========================
   // Logged In User
   //==========================
 
- const { data: session } = useSession();
+  const { data: session } = useSession();
 
-const user = session?.user;
-
+  const user = session?.user;
 
   //==========================
   // States
   //==========================
   const [district, setDistrict] = useState("");
-const [upazila, setUpazila] = useState("");
+  const [upazila, setUpazila] = useState("");
 
   const [districts, setDistricts] = useState([]);
   const [upazilas, setUpazilas] = useState([]);
@@ -35,95 +53,95 @@ const [upazila, setUpazila] = useState("");
   // const [selectedBlood, setSelectedBlood] = useState("");
 
   // use effect
-useEffect(() => {
-  const loadLocation = async () => {
-    try {
-      const districtData = await getDistrict();
-      const upazilaData = await getUpazila();
+  useEffect(() => {
+    const loadLocation = async () => {
+      try {
+        const districtData = await getDistrict();
+        const upazilaData = await getUpazila();
 
-      setDistricts(districtData);
-      setAllUpazilas(upazilaData);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+        setDistricts(districtData);
+        setAllUpazilas(upazilaData);
+      } catch (error) {
+        toast.error(error);
+      }
+    };
 
-  loadLocation();
-}, []);
+    loadLocation();
+  }, []);
 
   //==========================
   // Submit
   //==========================
 
- const onSubmit = async (e) => {
-  e.preventDefault();
+  const onSubmit = async (e) => {
+    e.preventDefault();
 
-  if (user.status === "blocked") {
-    toast.error("Blocked users can't create donation requests.");
-    return;
-  }
+    if (user.status === "blocked") {
+      toast.error("Blocked users can't create donation requests.");
+      return;
+    }
 
-  if (!selectedBlood) {
-    toast.error("Please select a blood group.");
-  return;
-}
+    if (!selectedBlood) {
+      toast.error("Please select a blood group.");
+      return;
+    }
 
-  const formData = new FormData(e.target);
-  const data = Object.fromEntries(formData.entries());
+    const formData = new FormData(e.target);
+    const data = Object.fromEntries(formData.entries());
 
-  const donationRequest = {
-    requesterName: user.name,
-    requesterEmail: user.email,
+    const donationRequest = {
+      requesterName: user.name,
+      requesterEmail: user.email,
 
-    recipientName: data.recipientName,
-    recipientDistrict: data.recipientDistrict,
-    recipientUpazila: data.recipientUpazila,
+      recipientName: data.recipientName,
+      recipientDistrict: data.recipientDistrict,
+      recipientUpazila: data.recipientUpazila,
 
-    hospitalName: data.hospitalName,
-    fullAddress: data.fullAddress,
+      hospitalName: data.hospitalName,
+      fullAddress: data.fullAddress,
 
-    bloodGroup: data.bloodGroup,
+      bloodGroup: data.bloodGroup,
 
-    donationDate: data.donationDate,
-    donationTime: data.donationTime,
+      donationDate: data.donationDate,
+      donationTime: data.donationTime,
 
-    requestMessage: data.requestMessage,
+      requestMessage: data.requestMessage,
 
-    donationStatus: "pending",
+      donationStatus: "pending",
 
-    createdAt: new Date().toISOString(),
+      createdAt: new Date().toISOString(),
+    };
+
+    // (donationRequest);
+
+    // API Example
+
+    try {
+      const res = await fetch("http://localhost:5000/createDonationRequest", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(donationRequest),
+      });
+
+      const result = await res.json();
+
+      if (result.insertedId) {
+        toast.success("Donation request created successfully.");
+        e.target.reset();
+        setSelectedBlood("");
+      } else {
+        toast.error("Failed to create donation request.");
+      }
+    } catch (error) {
+      console.error(error);
+      toast.error("Something went wrong.");
+    }
   };
 
-  console.log(donationRequest);
-
-  // API Example
-
-  /*
-  const res = await axiosSecure.post(
-    "/donation-request",
-    donationRequest
-  );
-
-  if (res.data.insertedId) {
-    toast.success("Donation request created successfully.");
-    e.target.reset();
-
-    setBloodGroup("");
-    setDistrict("");
-    setUpazila("");
-
-    setSelectedDistrict("");
-    setSelectedUpazila("");
-
-    setUpazilas([]);
-  }
-  */
-};
-
-
-
   return (
-    <div className="max-w-7xl mx-auto p-6">
+    <div className="max-w-2xl mx-auto p-6">
       {/* Heading */}
 
       <div className="mb-10">
@@ -135,7 +153,6 @@ useEffect(() => {
       </div>
 
       <form onSubmit={onSubmit} className="space-y-6">
-
         {/* ===========================================
                       Requester Information
         =========================================== */}
@@ -146,7 +163,7 @@ useEffect(() => {
           <TextField isReadOnly>
             <Label>Requester Name</Label>
 
-            <Input value={user?.name}  />
+            <Input value={user?.name} />
           </TextField>
 
           {/* Requester Email */}
@@ -154,7 +171,7 @@ useEffect(() => {
           <TextField isReadOnly>
             <Label>Requester Email</Label>
 
-            <Input value={user?.email}  />
+            <Input value={user?.email} />
           </TextField>
         </div>
 
@@ -271,10 +288,7 @@ useEffect(() => {
         <TextField isRequired className="w-full" name="hospitalName">
           <Label>Hospital Name</Label>
 
-          <Input
-            placeholder="Dhaka Medical College Hospital"
-            
-          />
+          <Input placeholder="Dhaka Medical College Hospital" />
 
           <Description>Where the donor will donate blood.</Description>
 
@@ -288,10 +302,7 @@ useEffect(() => {
         <TextField isRequired className="w-full" name="fullAddress">
           <Label>Full Address</Label>
 
-          <Input
-            placeholder="Zahir Raihan Rd, Dhaka"
-            
-          />
+          <Input placeholder="Zahir Raihan Rd, Dhaka" />
 
           <Description>Enter the complete hospital address.</Description>
 
@@ -329,12 +340,8 @@ useEffect(() => {
               </button>
             ))}
           </div>
-            {/* eta name change kora lagte pare */}
-          <input
-            type="hidden"
-            name="bloodGroup"
-            value={selectedBlood}
-          />
+          {/* eta name change kora lagte pare */}
+          <input type="hidden" name="bloodGroup" value={selectedBlood} />
         </div>
 
         {/* ===========================================
@@ -360,26 +367,28 @@ useEffect(() => {
         </div>
 
         {/* ===========================================
-        Request Message
-=========================================== */}
+                      Request Message
+        =========================================== */}
 
         <div>
-          <label className="text-sm font-medium mb-2 block">
-            Request Message
-          </label>
-
-          <textarea
-            name="requestMessage"
-            placeholder="Explain why blood is needed..."
-            rows={6}
-          />
+          <TextField isRequired name="requestMessage">
+            <label className="text-sm font-medium mb-2 block">
+              Request Message
+            </label>
+            <TextArea
+              // name="requestMessage"
+              placeholder="Explain why blood is needed..."
+              rows={5}
+              className="w-full px-3 pt-2 bg-white resize-none border rounded-xl"
+            />
+          </TextField>
         </div>
 
         {/* ===========================================
-        Important Notice
-=========================================== */}
+                          Important Notice
+        =========================================== */}
 
-        <div className="rounded-xl border border-red-200 bg-red-50 p-5">
+        {/* <div className="rounded-xl border border-red-200 bg-red-50 p-5">
           <h3 className="font-bold text-red-600">Important Notice</h3>
 
           <p className="text-sm text-gray-600 mt-2">
@@ -388,14 +397,14 @@ useEffect(() => {
             <span className="font-semibold text-red-600"> Pending</span>
             after submission.
           </p>
-        </div>
+        </div> */}
 
         {/* ===========================================
-        Submit Button
-=========================================== */}
+                        Submit Button
+        =========================================== */}
 
         <div className="flex justify-end">
-          <Button type="submit" color="danger" className="px-10">
+          <Button type="submit" className="px-10 bg-red-500">
             Request Donation
           </Button>
         </div>

@@ -6,12 +6,15 @@ import { redirect } from 'next/navigation'
 import React from 'react'
 import toast from 'react-hot-toast'
 import { GrEdit } from 'react-icons/gr'
+import { useRouter } from "next/navigation";
+
+
 
 const EditProfile = () => {
-    
+    const router = useRouter();
     const {data} = useSession();
     const user = data?.user;
-console.log(user)
+// console.log(user)
     const onSubmit = async(e) => {
         e.preventDefault();
         const formData = new FormData(e.currentTarget);
@@ -26,13 +29,15 @@ console.log(user)
             body: JSON.stringify(newData)
         });
         const data = await res.json();
+        console.log('After edit data..',data)
         if(data.modifiedCount > 0){
             toast.success("Edit Successfully");
-            redirect(`/dashboard/profile`)
+            // redirect(`/dashboard/profile`)
+            router.push("/dashboard/profile");
+            router.refresh();
         }else{
             alert('something wrong..');
         }
-        console.log('After edit data..',data)
         
 
     }

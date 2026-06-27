@@ -104,7 +104,7 @@ const RegisterPage = () => {
     e.preventDefault();
     const formData = new FormData(e.target);
     const userData = Object.fromEntries(formData.entries());
-    console.log("Form Data:", userData);
+    // console.log("Form Data:", userData);
 
     setErrPass("");
 

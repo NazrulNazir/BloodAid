@@ -23,10 +23,10 @@ import toast from "react-hot-toast";
 export default function NavBar() {
   const { data } = useSession();
   const user = data?.user;
-  console.log(user);
+  // console.log(user);
 
   const handleLogout = () => {
-    console.log("Logout");
+    // console.log("Logout");
   };
 
   const pathname = usePathname();

@@ -22,7 +22,7 @@ const DashboardSidebar = async () => {
     headers: await headers(),
   });
   const user = session?.user;
-  console.log(user);
+  // console.log(user);
   const admin = [
     { icon: Circles4Square, label: "Dashboard", link: "/dashboard/admin" },
     { icon: Person, label: "Profile", link: "/dashboard/profile" },
@@ -79,14 +79,14 @@ const DashboardSidebar = async () => {
       <aside>
         <nav className="hidden sm:flex flex-col justify-between pb-10 gap-2 w-65 sticky top-0 h-screen">
          <div>
-           <Link href={`/`} className="text-4xl text-center font-bold px-3 py-4 bg-gray-200 mb-2 block">
-            Blood<span className="text-red-500">Aid</span>
-          </Link>
-          {menuItems.map((item) => (
+           <Link href={`/`} className="text-4xl text-center font-bold px-3 py-4  mb-2 shadow-sm block">
+              Blood<span className="text-red-500">Aid</span>
+            </Link>
+            {menuItems.map((item) => (
             <Link
               key={item.label}
               href={item.link}
-              className="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm hover:bg-default mx-2"
+              className="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm hover:bg-red-200/50 hover:text-red-500 mx-2"
             >
               <item.icon className="size-5" />
               {item.label}
