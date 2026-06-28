@@ -48,3 +48,9 @@ export const recentDonationDel = async (donationDelete) => {
 
     return data;
 };
+
+// Details page
+export const myDonationRequestDetails = async (donatinDetails)=>{
+    const res = await fetch(`http://localhost:5000/${donatinDetails}`);
+    return res.json();
+}

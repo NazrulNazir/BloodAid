@@ -9,7 +9,7 @@ export default function ProfileForm({ onEdit }) {
   const { data } = useSession();
   const user = data?.user;
   return (
-    <div className="max-w-7xl mx-auto px-4 py-6">
+    <div className="max-w-7xl mx-auto px-4 py-6 bg-red-50">
       {/* Header */}
       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-5 mb-8">
         <div>
@@ -26,11 +26,11 @@ export default function ProfileForm({ onEdit }) {
       </div>
 
       {/* Main Card */}
-      <Card className="overflow-hidden rounded-3xl border">
+      <Card className="overflow-hidden rounded-3xl border bg-red-50">
         {/* Cover */}
         <div className="relative h-44 bg-linear-to-r from-[#4b0008] via-[#72000d] to-[#4b0008] rounded-t-2xl">
           {/* Blood Group */}
-          <div className="absolute right-4 md:right-8 bottom-4 md:-bottom-10 bg-white rounded-2xl shadow-lg border px-6 py-4 text-center">
+          <div className="absolute right-4 md:right-8 bottom-4 md:-bottom-10 rounded-2xl shadow-lg border px-6 py-4 text-center bg-red-50">
             <p className="text-[10px] font-semibold tracking-widest text-red-500">
               BLOOD GROUP
             </p>
@@ -107,7 +107,7 @@ export default function ProfileForm({ onEdit }) {
 
             {/* Right */}
             <div className="space-y-5">
-              <Card className="rounded-2xl p-6 border">
+              <Card className="rounded-2xl p-6 border bg-red-50">
                 <div className="flex items-center gap-2 mb-5">
                   <FaTint className="text-red-500" />
 
@@ -123,7 +123,7 @@ export default function ProfileForm({ onEdit }) {
                 </h2>
               </Card>
 
-              <Card className="rounded-2xl p-6 border">
+              <Card className="rounded-2xl p-6 border bg-red-50">
                 <h3 className="text-xl font-bold mb-3">Eligible to Donate</h3>
 
                 <p className="text-default-500 text-sm">
@@ -149,7 +149,7 @@ function InfoCard({ label, value }) {
         {label}
       </p>
 
-      <p className="font-semibold mt-2 wrap-break-word">{value || "N/A"}</p>
+      <p className="font-semibold wrap-break-word">{value || "N/A"}</p>
     </div>
   );
 }

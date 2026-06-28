@@ -19,6 +19,7 @@ import {
 import { signOut, useSession } from "@/lib/auth-client";
 import { RiLogoutCircleRLine } from "react-icons/ri";
 import toast from "react-hot-toast";
+import { TbCoinTaka } from "react-icons/tb";
 
 export default function NavBar() {
   const { data } = useSession();
@@ -44,7 +45,7 @@ export default function NavBar() {
       href: "/donation-requests",
       icon: <FaHandHoldingHeart />,
     },
-    { name: "Search Donor", href: "/search-donors", icon: <FaSearch /> },
+    { name: "funding", href: "/search-donors", icon: <TbCoinTaka /> },
   ];
 
   // const hadleLogout = async () => {

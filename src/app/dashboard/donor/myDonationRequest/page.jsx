@@ -1,5 +1,6 @@
 import { donationRequest } from "@/lib/api";
-import { Table } from "@heroui/react";
+import { Button, Popover, Table } from "@heroui/react";
+import Link from "next/link";
 import React from "react";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { IoLocationOutline } from "react-icons/io5";
@@ -67,7 +68,21 @@ const myDonationRequestPage = async () => {
                     <Table.Cell
                       className={"font-semibold text-gray-500 bg-red-50"}
                     >
-                      <BsThreeDotsVertical />
+                        <Popover>
+                              <Button isIconOnly variant="tertiary" className={'bg-background'}>
+                                <BsThreeDotsVertical />
+                              </Button>
+                              <Popover.Content className="max-w-64 text-gray-700" offset={10}>
+                                <Popover.Dialog>
+                                  <Popover.Arrow />
+                                  <Popover.Heading><Link href={`/dashboard/donor/myDonationRequest/${item._id}`}>Donation Details</Link></Popover.Heading>
+                                  <div className="mt-2 text-sm text-blue-500 hover:text-blue-600 font-semibold block">
+                                    {/* <RecentDonationDelete donationDelete = {donationDelete}/> */}
+                                    <Link href={`/dashboard/donor/myDonationRequest/${item._id}`}> Edit</Link>
+                                  </div>
+                                </Popover.Dialog>
+                              </Popover.Content>
+                            </Popover>
                     </Table.Cell>
                   </Table.Row>
                 ))}

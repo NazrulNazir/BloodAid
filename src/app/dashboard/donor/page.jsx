@@ -1,4 +1,5 @@
 import TablePopover from "@/components/Dashboard/TablePopover";
+import Details from "@/components/DetailsPage";
 import NoDonationRequest from "@/components/NoDonationRequest";
 import { recentDonationRequest } from "@/lib/api";
 import { Table } from "@heroui/react";
@@ -67,6 +68,9 @@ const DonorDashboardPage = async () => {
           </div>
         )}
       </div>
+      {/* <div>
+        <Details/>
+      </div> */}
     </div>
   );
 };
