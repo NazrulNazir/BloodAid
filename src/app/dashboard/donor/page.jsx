@@ -1,3 +1,4 @@
+import TablePopover from "@/components/Dashboard/TablePopover";
 import NoDonationRequest from "@/components/NoDonationRequest";
 import { recentDonationRequest } from "@/lib/api";
 import { Table } from "@heroui/react";
@@ -56,7 +57,7 @@ const DonorDashboardPage = async () => {
                         <Table.Cell className={'font-semibold text-gray-500 bg-red-50'}>{item.donationTime}</Table.Cell>
                         <Table.Cell className={'text-red-400 font-bold text-lg bg-red-50'}>{item.bloodGroup}</Table.Cell>
                         <Table.Cell className={'font-semibold text-orange-400 bg-red-50'}>{item.donationStatus}</Table.Cell>
-                        <Table.Cell className={'font-semibold text-gray-500 bg-red-50'}><BsThreeDotsVertical /></Table.Cell>
+                        <Table.Cell className={'font-semibold text-gray-500 bg-red-50'}><TablePopover donationDelete = {item._id}/></Table.Cell>
                       </Table.Row>
                     ))}
                   </Table.Body>

@@ -71,7 +71,7 @@ const DashboardSidebar = async () => {
       <Button
         variant="secondary"
         className={
-          "flex sm:hidden rounded-none py-9 bg-gray-200 justify-center items-center"
+          "flex sm:hidden rounded-none py-9 bg-red-50 justify-center items-center shadow-sm"
         }
       >
         <Bars />
