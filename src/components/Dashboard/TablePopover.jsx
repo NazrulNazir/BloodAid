@@ -28,7 +28,6 @@ const TablePopover = ({ item }) => {
 
     if (data.modifiedCount > 0) {
       toast.success(`Status changed to ${status}`);
-      // আবার data fetch করো অথবা router.refresh()
     }
   };
   return (
