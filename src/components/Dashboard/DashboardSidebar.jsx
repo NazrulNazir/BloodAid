@@ -34,7 +34,7 @@ const DashboardSidebar = async () => {
     {
       icon: BiSolidDonateHeart,
       label: "All Blood Donation Requests",
-      link: "/dashboard/admin/myDonationRequest",
+      link: "/dashboard/admin/allBloodDonationRequest",
     },
   ];
   const volunteer = [
