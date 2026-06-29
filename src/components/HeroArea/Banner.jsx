@@ -4,6 +4,7 @@ import Image from "next/image";
 import React from "react";
 import { Button } from "@heroui/react";
 import { FaTint, FaUsers, FaHeartbeat, FaHandHoldingHeart } from "react-icons/fa";
+import Link from "next/link";
 
 const Banner = () => {
   const stats = [
@@ -55,13 +56,13 @@ const Banner = () => {
           </p>
 
           <div className="flex gap-4 mt-8">
-            <Button color="danger" size="lg">
-              Donate Now
-            </Button>
+            <Link href={'/register'}><Button variant="secondary" color="danger" size="lg">
+              Join as a donor
+            </Button></Link>
 
-            <Button variant="bordered" size="lg">
-              Learn More
-            </Button>
+            <Link href={'/'}><Button variant="bordered" size="lg">
+              Search Donors
+            </Button></Link>
           </div>
         </div>
 

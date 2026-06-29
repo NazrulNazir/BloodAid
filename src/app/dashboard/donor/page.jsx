@@ -2,8 +2,9 @@ import TablePopover from "@/components/Dashboard/TablePopover";
 import Details from "@/components/DetailsPage";
 import NoDonationRequest from "@/components/NoDonationRequest";
 import { recentDonationRequest } from "@/lib/api";
-import { Table } from "@heroui/react";
+import { Button, Table } from "@heroui/react";
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { IoLocationOutline } from "react-icons/io5";
@@ -65,6 +66,9 @@ const DonorDashboardPage = async () => {
                 </Table.Content>
               </Table.ScrollContainer>
             </Table>
+            <div className="mt-10 flex justify-center items-center">
+              <Link href={`/dashboard/donor/myDonationRequest`}><Button className={'rounded-lg'} variant="danger">view my all request</Button></Link>
+            </div>
           </div>
         )}
       </div>
