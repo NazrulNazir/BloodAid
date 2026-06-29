@@ -9,27 +9,6 @@ import DonationStatusAction from "./DonatinStatusAction";
 const TablePopover = ({ item }) => {
   console.log(item.donationStatus);
   console.log(item);
-
-  const handleDonationStatus = async (id, status) => {
-    const res = await fetch(
-      `http://localhost:5000/donation-request/status/${id}`,
-      {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          donationStatus: status,
-        }),
-      },
-    );
-
-    const data = await res.json();
-
-    if (data.modifiedCount > 0) {
-      toast.success(`Status changed to ${status}`);
-    }
-  };
   return (
     <div>
       <Popover>

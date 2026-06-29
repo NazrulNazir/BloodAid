@@ -52,6 +52,11 @@ export const allDonationRequest = async () => {
   return res.json();
 };
 
+export const allUser = async () => {
+  const res = await fetch(`http://localhost:5000/admin/allUser`);
+  return res.json();
+};
+
 // DELETE
 export const recentDonationDel = async (donationDelete) => {
   const res = await fetch(

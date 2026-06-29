@@ -2,7 +2,10 @@ import React from 'react'
 
 const AdminDashboardPage = () => {
   return (
-    <div>AdminDashboardPage</div>
+    <div
+    className='px-5'>
+      AdminDashboardPage
+    </div>
   )
 }
 
