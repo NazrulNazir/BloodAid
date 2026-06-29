@@ -57,7 +57,7 @@ const DonorDashboardPage = async () => {
                         <Table.Cell className={'font-semibold text-gray-500 bg-red-50'}>{item.donationDate}</Table.Cell>
                         <Table.Cell className={'font-semibold text-gray-500 bg-red-50'}>{item.donationTime}</Table.Cell>
                         <Table.Cell className={'text-red-400 font-bold text-lg bg-red-50'}>{item.bloodGroup}</Table.Cell>
-                        <Table.Cell className={'font-semibold text-orange-400 bg-red-50'}>{item.donationStatus}</Table.Cell>
+                        <Table.Cell className={`font-semibold ${item.donationStatus === 'pending' ? 'text-orange-400' : item.donationStatus === 'inprogress' ? 'text-blue-500' : item.donationStatus === 'done' ? 'text-green-600' : 'text-red-500'} bg-red-50`}>{item.donationStatus}</Table.Cell>
                         <Table.Cell className={'font-semibold text-gray-500 bg-red-50'}><TablePopover item = {item}/></Table.Cell>
                       </Table.Row>
                     ))}
