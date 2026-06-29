@@ -3,8 +3,6 @@ import Link from "next/link";
 import React from "react";
 import { FaLocationDot } from "react-icons/fa6";
 import { FiArrowRight, FiCalendar, FiClock } from "react-icons/fi";
-// import { FaLocationDot } from "react-icons/fa6";
-// import { FiCalendar, FiClock, FiArrowRight } from "react-icons/fi";
 
 const DonatinsRequest = async () => {
   const donations = await getPendingDonationRequests();
@@ -91,7 +89,7 @@ const DonatinsRequest = async () => {
 
               {/* Button */}
               <Link
-                href={`/donation-request/${data._id}`}
+                href={`/donation-requests/${data._id}`}
                 className="mt-8 flex items-center justify-center gap-2 h-14 rounded-2xl bg-orange-500 hover:bg-orange-600 text-white font-bold transition-all duration-300"
               >
                 View Details
