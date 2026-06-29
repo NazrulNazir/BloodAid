@@ -78,7 +78,7 @@ const myDonationRequestPage = async () => {
                                   <Popover.Heading><Link href={`/dashboard/donor/myDonationRequest/${item._id}`}>Donation Details</Link></Popover.Heading>
                                   <div className="mt-2 text-sm text-blue-500 hover:text-blue-600 font-semibold block">
                                     {/* <RecentDonationDelete donationDelete = {donationDelete}/> */}
-                                    <Link href={`/dashboard/donor/myDonationRequest/${item._id}`}> Edit</Link>
+                                    <Link href={`/dashboard/donor/myDonationRequest/Edit/${item._id}`}> Edit</Link>
                                   </div>
                                 </Popover.Dialog>
                               </Popover.Content>

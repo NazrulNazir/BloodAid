@@ -50,7 +50,10 @@ export const recentDonationDel = async (donationDelete) => {
 };
 
 // Details page
-export const myDonationRequestDetails = async (donatinDetails)=>{
-    const res = await fetch(`http://localhost:5000/${donatinDetails}`);
+export const myDonationRequestDetails = async (donateId) => {
+    const res = await fetch(
+        `http://localhost:5000/donation-request/${donateId}`
+    );
+
     return res.json();
-}
+};

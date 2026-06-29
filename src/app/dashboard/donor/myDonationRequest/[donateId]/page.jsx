@@ -7,8 +7,9 @@ import {
 } from "react-icons/fi";
 import { FaHospital } from "react-icons/fa";
 import { useParams } from "next/navigation";
-import { myDonationRequestDetails } from "@/lib/api";
+// import { myDonationRequestDetails } from "@/lib/api";
 import { useEffect, useState } from "react";
+import { myDonationRequestDetails } from "@/lib/api";
 
 export default function DonationRequestDetailPage() {
 
@@ -16,14 +17,24 @@ export default function DonationRequestDetailPage() {
 
     // dynamic route id
     const { donateId } = useParams();
-    console.log(donateId);
-    useEffect(()=> {
-        const donationFun = async ()=> {
-            const donationDetails = await myDonationRequestDetails();
-            setDonations(donationDetails);
-        }
-        donationFun();
-    },[])
+    // console.log(donateId);
+
+useEffect(() => {
+  if (!donateId) return;
+
+  const donationFun = async () => {
+    try {
+      const donationDetails = await myDonationRequestDetails(donateId);
+      setDonations(donationDetails);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  donationFun();
+}, [donateId]);
+
+    console.log(donations);
   return (
     <section className="bg-[#fafafa] min-h-screen py-12 px-4">
 
@@ -44,7 +55,7 @@ export default function DonationRequestDetailPage() {
         <div className="flex justify-end mb-3">
 
           <span className="bg-orange-100 text-orange-500 text-xs font-bold uppercase tracking-widest px-5 py-2 rounded-full">
-            Pending
+            {donations.donationStatus}
           </span>
 
         </div>
@@ -70,7 +81,7 @@ export default function DonationRequestDetailPage() {
               <div>
 
                 <h2 className="text-4xl font-black">
-                  Babul Mia
+                  {donations.recipientName}
                 </h2>
 
                 <p className="uppercase tracking-[4px] text-xs text-gray-400 mt-2">
@@ -86,7 +97,7 @@ export default function DonationRequestDetailPage() {
             <div className="bg-red-50 rounded-3xl px-8 py-6 flex items-center gap-5">
 
               <div className="w-14 h-14 rounded-2xl bg-red-600 text-white flex items-center justify-center font-black text-2xl">
-                A-
+                {donations.bloodGroup}
               </div>
 
               <div>
@@ -130,11 +141,11 @@ export default function DonationRequestDetailPage() {
                   </p>
 
                   <h3 className="font-extrabold text-xl leading-7 mt-1">
-                    Sunamganj Medical <br /> College
+                    {donations.hospitalName}
                   </h3>
 
                   <p className="text-gray-500 mt-1">
-                    Bishwambarpur, Sunamganj
+                    {`${donations.recipientUpazila}, ${donations.recipientDistrict}`}
                   </p>
 
                 </div>
@@ -156,9 +167,7 @@ export default function DonationRequestDetailPage() {
                   </p>
 
                   <h3 className="font-bold text-lg mt-1">
-                    Sunamganj Medical College,
-                    <br />
-                    Sunamganj
+                    {donations.fullAddress}
                   </h3>
 
                 </div>
@@ -192,7 +201,7 @@ export default function DonationRequestDetailPage() {
                     </p>
 
                     <h3 className="font-black text-2xl leading-7">
-                      2025-12-22
+                      {donations.donationDate}
                     </h3>
 
                   </div>
@@ -214,7 +223,7 @@ export default function DonationRequestDetailPage() {
                     </p>
 
                     <h3 className="font-black text-2xl">
-                      23:00
+                      {donations.donationTime}
                     </h3>
 
                   </div>
@@ -232,7 +241,7 @@ export default function DonationRequestDetailPage() {
                 </p>
 
                 <p className="italic text-gray-500 mt-3">
-                  Need Blood for my friend...
+                  {donations.requestMessage}
                 </p>
 
               </div>
