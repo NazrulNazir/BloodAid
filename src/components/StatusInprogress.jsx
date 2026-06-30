@@ -8,7 +8,7 @@ import toast from "react-hot-toast";
 export default function StatusInprogress({ donateReqId }) {
   const handleDonationStatus = async (status) => {
     const res = await fetch(
-      `http://localhost:5000/donation-request/status/${donateReqId}`,
+      `${process.env.NEXT_PUBLIC_SERVER_URL}/donation-request/status/${donateReqId}`,
       {
         method: "PATCH",
         headers: {

@@ -13,54 +13,99 @@ export async function getCurrentUser() {
 }
 
 export const getDistrict = async () => {
-  const res = await fetch(`http://localhost:5000/districts`);
+  const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/districts`);
   return res.json();
 };
 
 export const getUpazila = async () => {
-  const res = await fetch(`http://localhost:5000/upazilas`);
+  const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/upazilas`);
   return res.json();
 };
 
 // gmail last 3 create data match kora gula paya jabe
 export const recentDonationRequest = async () => {
-    const user = await getCurrentUser();
+  const { token } = await auth.api.getToken({
+    headers: await headers(),
+  });
+  console.log(token);
+  const user = await getCurrentUser();
   const res = await fetch(
-    `http://localhost:5000/recentDonationRequest/${user?.email}`,
+    `${process.env.NEXT_PUBLIC_SERVER_URL}/recentDonationRequest/${user?.email}`,
+    {
+      cache: "no-store",
+      headers: {
+        authorization: `Bearer ${token}`,
+      },
+    },
   );
   return res.json();
 };
 export const getPendingDonationRequests = async () => {
-    // const user = await getCurrentUser();
+  // const user = await getCurrentUser();
   const res = await fetch(
-    `http://localhost:5000/donationRequest/status/pending`,
+    `${process.env.NEXT_PUBLIC_SERVER_URL}/donationRequest/status/pending`,
   );
   return res.json();
 };
 
-
 // gmail match kora data gula pawa jabe
 export const donationRequest = async () => {
-    const user = await getCurrentUser();
-  const res = await fetch(`http://localhost:5000/donationRequest/${user?.email}`);
+  const { token } = await auth.api.getToken({
+    headers: await headers(),
+  });
+  console.log(token);
+  const user = await getCurrentUser();
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_SERVER_URL}/donationRequest/${user?.email}`,
+    {
+      cache: "no-store",
+      headers: {
+        authorization: `Bearer ${token}`,
+      },
+    },
+  );
   return res.json();
 };
 
 // all data pawa jabe
 export const allDonationRequest = async () => {
-  const res = await fetch(`http://localhost:5000/donationRequest`);
+  const { token } = await auth.api.getToken({
+    headers: await headers(),
+  });
+  console.log(token);
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_SERVER_URL}/donationRequest`,
+    {
+      cache: "no-store",
+      headers: {
+        authorization: `Bearer ${token}`,
+      },
+    },
+  );
   return res.json();
 };
 
 export const allUser = async () => {
-  const res = await fetch(`http://localhost:5000/admin/allUser`);
+  const { token } = await auth.api.getToken({
+    headers: await headers(),
+  });
+  console.log(token);
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_SERVER_URL}/admin/allUser`,
+    {
+      cache: "no-store",
+      headers: {
+        authorization: `Bearer ${token}`,
+      },
+    },
+  );
   return res.json();
 };
 
 // DELETE
 export const recentDonationDel = async (donationDelete) => {
   const res = await fetch(
-    `http://localhost:5000/recentDonationRequest/${donationDelete}`,
+    `${process.env.NEXT_PUBLIC_SERVER_URL}/recentDonationRequest/${donationDelete}`,
     {
       method: "DELETE",
       headers: {
@@ -83,8 +128,45 @@ export const recentDonationDel = async (donationDelete) => {
 };
 
 // Details page
-export const myDonationRequestDetails = async (donateId) => {
-  const res = await fetch(`http://localhost:5000/donation-request/${donateId}`);
+// export const myDonationRequestDetails = async (donateReqId) => {
+//   console.log("1. Function called");
+
+//   const { token } = await auth.api.getToken({
+//     headers: await headers(),
+//   });
+
+//   console.log("2. Token:", token);
+
+//   const res = await fetch(
+//     `${process.env.NEXT_PUBLIC_SERVER_URL}/donation-request/${donateReqId}`,
+//     {
+//       cache: "no-store",
+//       headers: {
+//         authorization: `Bearer ${token}`,
+//       },
+//     }
+//   );
+
+//   console.log("3. Status:", res.status);
+
+//   return res.json();
+// };
+
+export const myDonationRequestDetails = async (donateReqId, email) => {
+  const { token } = await auth.api.getToken({
+    headers: await headers(),
+  });
+
+  console.log("2. Token:", token);
+  const res = await fetch(
+    `http://localhost:5000/donation-request/${email}/${donateReqId}`,
+    {
+      cache: "no-store",
+      headers: {
+        authorization: `Bearer ${token}`,
+      },
+    },
+  );
 
   return res.json();
 };

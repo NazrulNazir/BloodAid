@@ -1,36 +1,23 @@
-"use client";
 import { FiUser, FiCalendar, FiClock, FiMapPin } from "react-icons/fi";
 import { FaHospital } from "react-icons/fa";
-import { useParams } from "next/navigation";
-// import { myDonationRequestDetails } from "@/lib/api";
-import { useEffect, useState } from "react";
+
 import { myDonationRequestDetails } from "@/lib/api";
-import toast from "react-hot-toast";
 import StatusInprogress from "@/components/StatusInprogress";
 
-export default function DonationRequestDetailPage() {
-  const [donations, setDonations] = useState([]);
+export default async function DonationRequestDetailPage({ params }) {
+  const { donateReqId } = params;
 
-  // dynamic route id
-  const { donateReqId } = useParams();
-  // console.log(donateReqId);
+  const donations = await myDonationRequestDetails(donateReqId);
 
-  useEffect(() => {
-    if (!donateReqId) return;
-
-    const donationFun = async () => {
-      try {
-        const donationDetails = await myDonationRequestDetails(donateReqId);
-        setDonations(donationDetails);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-
-    donationFun();
-  }, [donateReqId]);
-
-  
+  if (!donations) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <h2 className="text-3xl font-bold text-red-500">
+          Donation Request Not Found
+        </h2>
+      </div>
+    );
+  }
 
   return (
     <section className="bg-[#fafafa] min-h-screen py-12 px-4">
@@ -48,19 +35,26 @@ export default function DonationRequestDetailPage() {
       <div className="max-w-5xl mx-auto mt-12 relative">
         {/* Status */}
         <div className="flex justify-end mb-3">
-          <span className={`${donations.donationStatus === 'pending' ? 'bg-orange-100 text-orange-500' : 'bg-blue-100 text-blue-500'}  text-xs font-bold uppercase tracking-widest px-5 py-2 rounded-full `}>
+          <span
+            className={`text-xs font-bold uppercase tracking-widest px-5 py-2 rounded-full
+            ${
+              donations.donationStatus === "pending"
+                ? "bg-orange-100 text-orange-500"
+                : donations.donationStatus === "inprogress"
+                ? "bg-blue-100 text-blue-600"
+                : donations.donationStatus === "done"
+                ? "bg-green-100 text-green-600"
+                : "bg-red-100 text-red-500"
+            }`}
+          >
             {donations.donationStatus}
           </span>
         </div>
 
         {/* Card */}
-
         <div className="bg-white rounded-[35px] shadow-xl p-10">
           {/* Top */}
-
           <div className="flex flex-col md:flex-row justify-between gap-10">
-            {/* Left */}
-
             <div className="flex items-center gap-6">
               <div className="w-20 h-20 rounded-3xl bg-red-50 flex items-center justify-center shadow">
                 <FiUser className="text-red-500 text-4xl" />
@@ -77,8 +71,7 @@ export default function DonationRequestDetailPage() {
               </div>
             </div>
 
-            {/* Blood */}
-
+            {/* Blood Group */}
             <div className="bg-red-50 rounded-3xl px-8 py-6 flex items-center gap-5">
               <div className="w-14 h-14 rounded-2xl bg-red-600 text-white flex items-center justify-center font-black text-2xl">
                 {donations.bloodGroup}
@@ -94,17 +87,15 @@ export default function DonationRequestDetailPage() {
             </div>
           </div>
 
-          {/* Divider */}
-
+          {/* Body */}
           <div className="grid lg:grid-cols-2 gap-16 mt-16">
-            {/* Left Side */}
+            {/* Left */}
             <div>
               <h4 className="text-xs uppercase tracking-[4px] text-gray-400 font-bold mb-8">
                 Location Details
               </h4>
 
               {/* Hospital */}
-
               <div className="flex gap-4 mb-10">
                 <div className="w-12 h-12 rounded-xl bg-green-50 flex items-center justify-center">
                   <FaHospital className="text-green-600 text-xl" />
@@ -115,18 +106,18 @@ export default function DonationRequestDetailPage() {
                     Hospital
                   </p>
 
-                  <h3 className="font-extrabold text-xl leading-7 mt-1">
+                  <h3 className="font-extrabold text-xl mt-1">
                     {donations.hospitalName}
                   </h3>
 
                   <p className="text-gray-500 mt-1">
-                    {`${donations.recipientUpazila}, ${donations.recipientDistrict}`}
+                    {donations.recipientUpazila},{" "}
+                    {donations.recipientDistrict}
                   </p>
                 </div>
               </div>
 
               {/* Address */}
-
               <div className="flex gap-4">
                 <div className="w-12 h-12 rounded-xl bg-red-50 flex items-center justify-center">
                   <FiMapPin className="text-red-600 text-xl" />
@@ -144,8 +135,7 @@ export default function DonationRequestDetailPage() {
               </div>
             </div>
 
-            {/* Right Side */}
-
+            {/* Right */}
             <div>
               <h4 className="text-xs uppercase tracking-[4px] text-gray-400 font-bold mb-8">
                 Timing & Urgency
@@ -153,7 +143,6 @@ export default function DonationRequestDetailPage() {
 
               <div className="flex gap-10">
                 {/* Date */}
-
                 <div className="flex gap-3">
                   <div className="w-11 h-11 rounded-xl bg-red-50 flex items-center justify-center">
                     <FiCalendar className="text-red-500 text-xl" />
@@ -164,14 +153,13 @@ export default function DonationRequestDetailPage() {
                       Required Date
                     </p>
 
-                    <h3 className="font-black text-2xl leading-7">
+                    <h3 className="font-black text-2xl">
                       {donations.donationDate}
                     </h3>
                   </div>
                 </div>
 
                 {/* Time */}
-
                 <div className="flex gap-3">
                   <div className="w-11 h-11 rounded-xl bg-gray-100 flex items-center justify-center">
                     <FiClock className="text-gray-700 text-xl" />
@@ -190,21 +178,19 @@ export default function DonationRequestDetailPage() {
               </div>
 
               {/* Message */}
-
               <div className="mt-10 border border-yellow-100 bg-yellow-50 rounded-3xl p-6">
                 <p className="uppercase text-[11px] tracking-[3px] text-yellow-700 font-bold">
                   Request Message
                 </p>
 
-                <p className="italic text-gray-500 mt-3">
+                <p className="italic text-gray-600 mt-3">
                   {donations.requestMessage}
                 </p>
               </div>
 
-              {/* Donate Button */}
-
-              <div className="mt-12 w-full rounded-2xl text-white font-bold text-xl hover:bg-red-700 duration-300">
-                <StatusInprogress donateReqId = {donateReqId}/>
+              {/* Client Component */}
+              <div className="mt-12">
+                <StatusInprogress donateReqId={donateReqId} />
               </div>
             </div>
           </div>

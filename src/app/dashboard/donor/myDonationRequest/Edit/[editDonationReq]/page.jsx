@@ -42,7 +42,7 @@ const EditDonationDetailsPage = () => {
     const formData = new FormData(e.currentTarget);
     const newData = Object.fromEntries(formData.entries());
 
-    const res = await fetch(`http://localhost:5000/donation-request/Edit/${editDonationReq}`, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/donation-request/Edit/${editDonationReq}`, {
       method: "PATCH",
       headers: {
         "content-type": "application/json",

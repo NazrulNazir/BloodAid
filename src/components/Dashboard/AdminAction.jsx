@@ -5,7 +5,7 @@ import toast from "react-hot-toast";
 export default function AdminAction({ item }) {
   const handleDonationStatus = async (status) => {
     const res = await fetch(
-      `http://localhost:5000/donation-request/status/${item._id}`,
+      `${process.env.NEXT_PUBLIC_SERVER_URL}/donation-request/status/${item._id}`,
       {
         method: "PATCH",
         headers: {

@@ -13,7 +13,7 @@ const AdminPopover = ({ item }) => {
   const handleRoleUpdate = async (role) => {
     try {
       const res = await fetch(
-        `http://localhost:5000/users/${item._id}`,
+        `${process.env.NEXT_PUBLIC_SERVER_URL}/users/${item._id}`,
         {
           method: "PATCH",
           headers: {
@@ -43,7 +43,7 @@ const AdminPopover = ({ item }) => {
   const handleStatusUpdate = async (status) => {
     try {
       const res = await fetch(
-        `http://localhost:5000/users/${item._id}`,
+        `${process.env.NEXT_PUBLIC_SERVER_URL}/users/${item._id}`,
         {
           method: "PATCH",
           headers: {

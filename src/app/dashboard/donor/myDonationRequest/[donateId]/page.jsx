@@ -10,6 +10,7 @@ import { useParams } from "next/navigation";
 // import { myDonationRequestDetails } from "@/lib/api";
 import { useEffect, useState } from "react";
 import { myDonationRequestDetails } from "@/lib/api";
+import { useSession } from "@/lib/auth-client";
 
 export default function DonationRequestDetailPage() {
 
@@ -19,12 +20,16 @@ export default function DonationRequestDetailPage() {
     const { donateReqId } = useParams();
     // console.log(donateReqId);
 
+    const { data } = useSession();
+      const user = data?.user;
+      const email  = user?.email;
+
 useEffect(() => {
   if (!donateReqId) return;
 
   const donationFun = async () => {
     try {
-      const donationDetails = await myDonationRequestDetails(donateReqId);
+      const donationDetails = await myDonationRequestDetails(donateReqId, email);
       setDonations(donationDetails);
     } catch (error) {
       console.error(error);
@@ -32,7 +37,7 @@ useEffect(() => {
   };
 
   donationFun();
-}, [donateReqId]);
+}, [donateReqId, email]);
 
     console.log(donations);
   return (

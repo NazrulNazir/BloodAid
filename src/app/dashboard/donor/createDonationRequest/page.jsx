@@ -117,7 +117,7 @@ export default function CreateDonationRequest() {
     // API Example
 
     try {
-      const res = await fetch("http://localhost:5000/createDonationRequest", {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/createDonationRequest`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

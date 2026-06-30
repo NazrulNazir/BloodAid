@@ -21,7 +21,7 @@ const EditProfile = () => {
         const newData = Object.fromEntries(formData.entries());
         
 
-        const res = await fetch(`http://localhost:5000/user/${user?.id}`, {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/user/${user?.id}`, {
             method: 'PATCH',
             headers: {
                 'content-type' : 'application/json'
