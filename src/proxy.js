@@ -11,12 +11,12 @@ export default async function proxy(request) {
         headers: await headers()
     })
 
-    if(session){
+    if(!session){
 
-        return NextResponse.next()
+      return NextResponse.redirect(new URL('/login', request.url));
+        // return NextResponse.next()
     }
     
-  return NextResponse.redirect(new URL('/login', request.url));
 }
 
 export const config = {
