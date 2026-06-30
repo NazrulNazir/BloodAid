@@ -89,7 +89,7 @@ const DonatinsRequest = async () => {
 
               {/* Button */}
               <Link
-                href={`/donation-requests/${data._id}`}
+                href={`/alldonationreq/${data._id}`}
                 className="mt-8 flex items-center justify-center gap-2 h-14 rounded-2xl bg-orange-500 hover:bg-orange-600 text-white font-bold transition-all duration-300"
               >
                 View Details

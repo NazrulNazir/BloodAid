@@ -42,7 +42,7 @@ export default function NavBar() {
     { name: "Home", href: "/" },
     {
       name: "Donaton Requests",
-      href: "/donation-requests",
+      href: "/alldonationreq",
       icon: <FaHandHoldingHeart />,
     },
     { name: "funding", href: "/funding", icon: <TbCoinTaka /> },

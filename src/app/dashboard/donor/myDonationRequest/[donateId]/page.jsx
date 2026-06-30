@@ -17,19 +17,19 @@ export default function DonationRequestDetailPage() {
     const [donations, setDonations] = useState([]);
 
     // dynamic route id
-    const { donateReqId } = useParams();
-    // console.log(donateReqId);
+    const { donateId } = useParams();
+    // console.log(donateId);
 
     const { data } = useSession();
       const user = data?.user;
       const email  = user?.email;
 
 useEffect(() => {
-  if (!donateReqId) return;
+  if (!donateId) return;
 
   const donationFun = async () => {
     try {
-      const donationDetails = await myDonationRequestDetails(donateReqId, email);
+      const donationDetails = await myDonationRequestDetails(donateId, email);
       setDonations(donationDetails);
     } catch (error) {
       console.error(error);
@@ -37,7 +37,7 @@ useEffect(() => {
   };
 
   donationFun();
-}, [donateReqId, email]);
+}, [donateId, email]);
 
     console.log(donations);
   return (

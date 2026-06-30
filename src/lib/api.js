@@ -128,38 +128,38 @@ export const recentDonationDel = async (donationDelete) => {
 };
 
 // Details page
-// export const myDonationRequestDetails = async (donateReqId) => {
-//   console.log("1. Function called");
+export const getDonationRequestDetails = async (donationId) => {
+  console.log("1. Function called");
 
-//   const { token } = await auth.api.getToken({
-//     headers: await headers(),
-//   });
+  const { token } = await auth.api.getToken({
+    headers: await headers(),
+  });
 
-//   console.log("2. Token:", token);
+  console.log("2. Token:", token);
 
-//   const res = await fetch(
-//     `${process.env.NEXT_PUBLIC_SERVER_URL}/donation-request/${donateReqId}`,
-//     {
-//       cache: "no-store",
-//       headers: {
-//         authorization: `Bearer ${token}`,
-//       },
-//     }
-//   );
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_SERVER_URL}/donation-request/${donationId}`,
+    {
+      cache: "no-store",
+      headers: {
+        authorization: `Bearer ${token}`,
+      },
+    }
+  );
 
-//   console.log("3. Status:", res.status);
+  console.log("3. Status:", res.status);
 
-//   return res.json();
-// };
+  return res.json();
+};
 
-export const myDonationRequestDetails = async (donateReqId, email) => {
+export const myDonationRequestDetails = async (donateId, email) => {
   const { token } = await auth.api.getToken({
     headers: await headers(),
   });
 
   console.log("2. Token:", token);
   const res = await fetch(
-    `http://localhost:5000/donation-request/${email}/${donateReqId}`,
+    `${process.env.NEXT_PUBLIC_SERVER_URL}/donation-request/${email}/${donateId}`,
     {
       cache: "no-store",
       headers: {
@@ -170,3 +170,6 @@ export const myDonationRequestDetails = async (donateReqId, email) => {
 
   return res.json();
 };
+
+
+// myDonationRequestDetails
