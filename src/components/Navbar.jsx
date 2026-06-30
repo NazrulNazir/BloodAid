@@ -45,7 +45,7 @@ export default function NavBar() {
       href: "/donation-requests",
       icon: <FaHandHoldingHeart />,
     },
-    { name: "funding", href: "/search-donors", icon: <TbCoinTaka /> },
+    { name: "funding", href: "/funding", icon: <TbCoinTaka /> },
   ];
 
   // const hadleLogout = async () => {
