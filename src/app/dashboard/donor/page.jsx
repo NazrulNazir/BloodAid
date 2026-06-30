@@ -11,8 +11,6 @@ import { IoLocationOutline } from "react-icons/io5";
 
 const DonorDashboardPage = async () => {
   const donationRequest = await recentDonationRequest();
-  console.log("Donation Req-", donationRequest);
-  console.log(donationRequest.length);
 
   const donationLength = donationRequest.length > 0;
 

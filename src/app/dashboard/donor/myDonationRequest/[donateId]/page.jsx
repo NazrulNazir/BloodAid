@@ -18,7 +18,6 @@ export default function DonationRequestDetailPage() {
 
     // dynamic route id
     const { donateId } = useParams();
-    // console.log(donateId);
 
     const { data } = useSession();
       const user = data?.user;
@@ -39,7 +38,6 @@ useEffect(() => {
   donationFun();
 }, [donateId, email]);
 
-    console.log(donations);
   return (
     <section className="bg-[#fafafa] min-h-screen py-12 px-4">
 

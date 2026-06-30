@@ -7,8 +7,6 @@ import RecentDonationDelete from "../RecentDonationDelete";
 import DonationStatusAction from "./DonatinStatusAction";
 
 const TablePopover = ({ item }) => {
-  console.log(item.donationStatus);
-  console.log(item);
   return (
     <div>
       <Popover>

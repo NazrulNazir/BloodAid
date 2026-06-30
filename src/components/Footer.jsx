@@ -5,7 +5,6 @@ import { FaPhoneAlt, FaEnvelope, FaMapMarkerAlt } from "react-icons/fa";
 
 export default function Footer() {
   const pathName = usePathname();
-  // console.log(pathName)
   if(pathName.includes('dashboard')){
     return null;
   }

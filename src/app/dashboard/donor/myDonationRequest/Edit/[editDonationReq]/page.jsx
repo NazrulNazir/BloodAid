@@ -14,7 +14,6 @@ const EditDonationDetailsPage = () => {
 
   // dynamic route id
   const { editDonationReq } = useParams();
-  console.log('dotatedId no', editDonationReq);
 
   useEffect(() => {
     if (!editDonationReq) return;
@@ -31,14 +30,12 @@ const EditDonationDetailsPage = () => {
     donationFun();
   }, [editDonationReq]);
 
-  console.log(donations);
 
   const router = useRouter();
 
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    console.log("Submit clicked");
     const formData = new FormData(e.currentTarget);
     const newData = Object.fromEntries(formData.entries());
 
@@ -51,10 +48,8 @@ const EditDonationDetailsPage = () => {
     });
 
 
-    console.log(res.status);
 
     const data = await res.json();
-    console.log("After edit data..", data);
     if (data.modifiedCount > 0) {
       toast.success("Edit Successfully");
       // redirect(`/dashboard/profile`)

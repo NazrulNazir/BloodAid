@@ -22,7 +22,6 @@ const DashboardSidebar = async () => {
     headers: await headers(),
   });
   const user = session?.user;
-  // console.log(user);
   const admin = [
     { icon: Circles4Square, label: "Dashboard", link: "/dashboard/admin" },
     { icon: Person, label: "Profile", link: "/dashboard/profile" },

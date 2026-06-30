@@ -34,7 +34,6 @@ const TestDetails = () => {
         }, [donationId]);
 //      const { donateReqId } = params;
 // const donations = await getDonationRequestDetails(donateReqId);
-console.log(donations)
   return (
     <div>
       <section className="bg-[#fafafa] min-h-screen py-12 px-4">

@@ -12,6 +12,11 @@ export async function getCurrentUser() {
   return session?.user;
 }
 
+// const { token } = await auth.api.getToken({
+//   headers: await headers(),
+// });
+
+
 export const getDistrict = async () => {
   const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/districts`);
   return res.json();
@@ -27,7 +32,7 @@ export const recentDonationRequest = async () => {
   const { token } = await auth.api.getToken({
     headers: await headers(),
   });
-  console.log(token);
+  console.log('Recent Token :', token)
   const user = await getCurrentUser();
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_SERVER_URL}/recentDonationRequest/${user?.email}`,
@@ -53,7 +58,6 @@ export const donationRequest = async () => {
   const { token } = await auth.api.getToken({
     headers: await headers(),
   });
-  console.log(token);
   const user = await getCurrentUser();
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_SERVER_URL}/donationRequest/${user?.email}`,
@@ -72,7 +76,6 @@ export const allDonationRequest = async () => {
   const { token } = await auth.api.getToken({
     headers: await headers(),
   });
-  console.log(token);
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_SERVER_URL}/donationRequest`,
     {
@@ -89,7 +92,6 @@ export const allUser = async () => {
   const { token } = await auth.api.getToken({
     headers: await headers(),
   });
-  console.log(token);
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_SERVER_URL}/admin/allUser`,
     {
@@ -115,7 +117,6 @@ export const recentDonationDel = async (donationDelete) => {
   );
 
   const data = await res.json();
-  console.log(data);
   if (data.deletedCount > 0) {
     revalidatePath("/dashboard/donor");
     return {
@@ -129,13 +130,13 @@ export const recentDonationDel = async (donationDelete) => {
 
 // Details page
 export const getDonationRequestDetails = async (donationId) => {
-  console.log("1. Function called");
 
   const { token } = await auth.api.getToken({
     headers: await headers(),
   });
 
-  console.log("2. Token:", token);
+  console.log('Details Page Token : ', token);
+
 
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_SERVER_URL}/donation-request/${donationId}`,
@@ -147,7 +148,6 @@ export const getDonationRequestDetails = async (donationId) => {
     }
   );
 
-  console.log("3. Status:", res.status);
 
   return res.json();
 };
@@ -157,7 +157,6 @@ export const myDonationRequestDetails = async (donateId, email) => {
     headers: await headers(),
   });
 
-  console.log("2. Token:", token);
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_SERVER_URL}/donation-request/${email}/${donateId}`,
     {

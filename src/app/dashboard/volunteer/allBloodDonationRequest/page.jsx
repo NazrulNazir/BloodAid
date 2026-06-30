@@ -6,7 +6,6 @@ import { BsThreeDotsVertical } from "react-icons/bs";
 import { IoLocationOutline } from "react-icons/io5";
 
 const AllDonationRequest = async () => {
-  console.log(Table);
   const donations = await allDonationRequest();
   return (
     <div className="mt-15 pr-3 px-10">

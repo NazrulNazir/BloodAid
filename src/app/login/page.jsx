@@ -16,7 +16,6 @@ const LogInPage = () => {
     e.preventDefault();
     const formData = new FormData(e.target);
     const userData = Object.fromEntries(formData.entries());
-    console.log("Login User Data..", userData);
 
     const { data, error } = await authClient.signIn.email({
       email: userData.email,
@@ -25,7 +24,6 @@ const LogInPage = () => {
       callbackURL: `/`,
     });
 
-    // console.log("get form data", { data, error });
 
     if (data) {
       toast.success("Login successfully..");

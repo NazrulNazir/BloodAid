@@ -34,7 +34,6 @@ const AdminPopover = ({ item }) => {
         toast.error("Role update failed");
       }
     } catch (err) {
-      console.log(err);
       toast.error("Something went wrong");
     }
   };
@@ -64,7 +63,6 @@ const AdminPopover = ({ item }) => {
         toast.error("Status update failed");
       }
     } catch (err) {
-      console.log(err);
       toast.error("Something went wrong");
     }
   };

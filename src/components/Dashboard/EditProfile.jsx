@@ -14,7 +14,6 @@ const EditProfile = () => {
     const router = useRouter();
     const {data} = useSession();
     const user = data?.user;
-// console.log(user)
     const onSubmit = async(e) => {
         e.preventDefault();
         const formData = new FormData(e.currentTarget);
@@ -29,7 +28,6 @@ const EditProfile = () => {
             body: JSON.stringify(newData)
         });
         const data = await res.json();
-        console.log('After edit data..',data)
         if(data.modifiedCount > 0){
             toast.success("Edit Successfully");
             // redirect(`/dashboard/profile`)

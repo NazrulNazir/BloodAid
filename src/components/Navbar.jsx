@@ -24,10 +24,8 @@ import { TbCoinTaka } from "react-icons/tb";
 export default function NavBar() {
   const { data } = useSession();
   const user = data?.user;
-  // console.log(user);
 
   const handleLogout = () => {
-    // console.log("Logout");
   };
 
   const pathname = usePathname();
