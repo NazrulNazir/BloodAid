@@ -34,7 +34,7 @@ const EditProfile = () => {
             router.push("/dashboard/profile");
             router.refresh();
         }else{
-            alert('something wrong..');
+            toast.error('something wrong..');
         }
         
 

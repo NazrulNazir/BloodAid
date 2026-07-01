@@ -8,6 +8,7 @@ import { FaEdit, FaMapMarkerAlt, FaTint, FaUser } from "react-icons/fa";
 export default function ProfileForm({ onEdit }) {
   const { data } = useSession();
   const user = data?.user;
+const email = data?.user?.email;
   return (
     <div className="max-w-7xl mx-auto px-4 py-6 bg-red-50">
       {/* Header */}

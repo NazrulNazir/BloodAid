@@ -153,22 +153,26 @@ export const getDonationRequestDetails = async (donationId) => {
 };
 
 export const myDonationRequestDetails = async (donateId, email) => {
-  const { token } = await auth.api.getToken({
-    headers: await headers(),
-  });
+  // const { token } = await auth.api.getToken({
+  //   headers: await headers(),
+  // });
 
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_SERVER_URL}/donation-request/${email}/${donateId}`,
-    {
-      cache: "no-store",
-      headers: {
-        authorization: `Bearer ${token}`,
-      },
-    },
+    // {
+    //   cache: "no-store",
+    //   headers: {
+    //     authorization: `Bearer ${token}`,
+    //   },
+    // },
   );
 
   return res.json();
 };
 
 
-// myDonationRequestDetails
+// myDonationRequestEdit
+// export const donationReqEdit = async (editDonationReq, email)=> {
+//   const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/${email}/${editDonationReq}`);
+//   return res.json();
+// }
