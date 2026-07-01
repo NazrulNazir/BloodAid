@@ -5,32 +5,32 @@ import React from "react";
 import { Button } from "@heroui/react";
 import { FaTint, FaUsers, FaHeartbeat, FaHandHoldingHeart } from "react-icons/fa";
 import Link from "next/link";
-import { allDonationRequest, allUser, getFunding } from "@/lib/api";
+// import { allDonationRequest, allUser, getFunding } from "@/lib/api";
 
 const Banner = async () => {
-  const donations = await allUser();
-  const facilities = await allDonationRequest();
-  const totalFunding = await getFunding();
-  const allReq = facilities.length;
-  const totalDonar = donations.length || 20;
+  // const donations = await allUser();
+  // const facilities = await allDonationRequest();
+  // const totalFunding = await getFunding();
+  // const allReq = facilities.length;
+  // const totalDonar = donations.length || 20;
 
-  const totalAmount = totalFunding.reduce((total, item) => {
-  return total + item.amount;
-}, 0);
+//  const totalAmount = totalFunding.reduce((total, item) => {
+//   return total + Number(item.amount);
+// }, 0);
   const stats = [
     {
       icon: <FaUsers />,
-      count: totalDonar,
+      count: '20',
       label: "Total Donor",
     },
     {
       icon: <FaHandHoldingHeart />,
-      count: `${totalAmount}$`,
+      count: `${1250}$`,
       label: "Total Funding",
     },
     {
       icon: <FaHeartbeat />,
-      count: allReq,
+      count: 25,
       label: "Total Request",
     },
   ];

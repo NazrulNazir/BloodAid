@@ -118,39 +118,47 @@ export default function NavBar() {
             </div>
           </Link>
           {/* Desktop Menu */}
-          <ul className="hidden md:flex items-center gap-6 text-gray-700 font-medium">
-            {navItems.map((item) => (
-              <li key={item.href}>
-                <Link
-                  href={item.href}
-                  className={`flex items-center gap-1 ${
-                    isActive(item.href) ? "text-red-500" : "hover:text-red-500"
-                  }`}
-                >
-                  {item.icon} {item.name}
-                </Link>
-              </li>
-            ))}
-          </ul>
+          {/* Desktop Right Side */}
+          <div className="hidden md:flex items-center gap-8">
+            <ul className="flex items-center gap-6 text-gray-700 font-medium">
+              {navItems.map((item) => (
+                <li key={item.href}>
+                  <Link
+                    href={item.href}
+                    className={`flex items-center gap-1 ${
+                      isActive(item.href)
+                        ? "text-red-500"
+                        : "hover:text-red-500"
+                    }`}
+                  >
+                    {item.icon}
+                    {item.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+
+            {user ? (
+              profileModal
+            ) : (
+              <Link
+                href="/login"
+                className="bg-red-500 text-white px-5 py-2 rounded-full hover:bg-red-600"
+              >
+                <span className="flex items-center gap-2">
+                  <FaRegUserCircle />
+                  Login
+                </span>
+              </Link>
+            )}
+          </div>
 
           {/* Login + Mobile Button */}
           <div className="flex items-center gap-3">
             <div className="hidden md:block">
-              {user ? (
+              {user && (
                 <div>{profileModal}</div>
-              ) : (
-                <div className="flex">
-                  <Link
-                    href="/login"
-                    className=" bg-red-500 text-white px-4 py-2 rounded-full hover:bg-red-600"
-                  >
-                    <span className="flex items-center gap-2">
-                      <FaRegUserCircle />
-                      Login
-                    </span>
-                  </Link>
-                </div>
-              )}
+              ) }
             </div>
 
             {/* Mobile Hamburger */}
@@ -184,9 +192,18 @@ export default function NavBar() {
               ))}
 
               <li>
-                <div className="">
-                  <div>{profileModal}</div>
-                </div>
+                {user ? (
+                  profileModal
+                ) : (
+                  <Link
+                    href="/login"
+                    onClick={() => setOpen(false)}
+                    className="flex items-center gap-2 bg-red-500 text-white px-4 py-2 rounded-md"
+                  >
+                    <FaRegUserCircle />
+                    Login
+                  </Link>
+                )}
               </li>
             </ul>
           </div>

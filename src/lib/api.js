@@ -31,7 +31,7 @@ export const getFunding = async () => {
     headers: await headers(),
   });
   const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/funding`,{
-      cache: "no-store",
+      // cache: "no-store",
       headers: {
         authorization: `Bearer ${token}`,
       },
@@ -49,7 +49,7 @@ export const recentDonationRequest = async () => {
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_SERVER_URL}/recentDonationRequest/${user?.email}`,
     {
-      cache: "no-store",
+      // cache: "no-store",
       headers: {
         authorization: `Bearer ${token}`,
       },
@@ -74,7 +74,7 @@ export const donationRequest = async () => {
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_SERVER_URL}/donationRequest/${user?.email}`,
     {
-      cache: "no-store",
+      // cache: "no-store",
       headers: {
         authorization: `Bearer ${token}`,
       },
@@ -91,7 +91,7 @@ export const allDonationRequest = async () => {
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_SERVER_URL}/donationRequest`,
     {
-      cache: "no-store",
+      // cache: "no-store",
       headers: {
         authorization: `Bearer ${token}`,
       },
@@ -107,7 +107,7 @@ export const allUser = async () => {
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_SERVER_URL}/admin/allUser`,
     {
-      cache: "no-store",
+      // cache: "no-store",
       headers: {
         authorization: `Bearer ${token}`,
       },
@@ -153,7 +153,7 @@ export const getDonationRequestDetails = async (donationId) => {
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_SERVER_URL}/donation-request/${donationId}`,
     {
-      cache: "no-store",
+      // cache: "no-store",
       headers: {
         authorization: `Bearer ${token}`,
       },
@@ -172,7 +172,7 @@ export const myDonationRequestDetails = async (donateId, email) => {
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_SERVER_URL}/donation-request/${email}/${donateId}`,
     // {
-    //   cache: "no-store",
+      // cache: "no-store",
     //   headers: {
     //     authorization: `Bearer ${token}`,
     //   },

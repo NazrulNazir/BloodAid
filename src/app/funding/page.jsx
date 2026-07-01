@@ -1,7 +1,8 @@
 import { getFunding } from "@/lib/api";
 
 export default async function FundingHistory() {
-    const fundingData = await getFunding();
+  const fundingData = await getFunding();
+
   return (
     <div className="min-h-screen bg-[#fafafa] py-12 px-4 mb-15">
       <div className="max-w-6xl mx-auto bg-white rounded-3xl shadow-lg border border-gray-100 overflow-hidden">
@@ -29,9 +30,7 @@ export default async function FundingHistory() {
 
               <div>
                 <h3 className="font-bold text-gray-800">{item.name}</h3>
-                <p className="text-xs text-gray-400 uppercase">
-                  Member
-                </p>
+                <p className="text-xs text-gray-400 uppercase">Member</p>
               </div>
             </div>
 
@@ -41,9 +40,7 @@ export default async function FundingHistory() {
             </p>
 
             {/* Date */}
-            <p className="font-semibold text-gray-700">
-              {new Date(item.date)}
-            </p>
+            <p className="font-semibold text-gray-700">{new Date(item.date).toLocaleDateString()}</p>
 
             {/* Amount */}
             <h3 className="font-extrabold text-xl text-gray-900">
