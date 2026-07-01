@@ -154,7 +154,7 @@ export default function NavBar() {
           </div>
 
           {/* Login + Mobile Button */}
-          <div className="flex items-center gap-3">
+          <div className="md:hidden flex items-center gap-3">
             <div className="hidden md:block">
               {user && (
                 <div>{profileModal}</div>
