@@ -1,32 +1,37 @@
-"use client";
+// "use client";
 
 import Image from "next/image";
 import React from "react";
 import { Button } from "@heroui/react";
 import { FaTint, FaUsers, FaHeartbeat, FaHandHoldingHeart } from "react-icons/fa";
 import Link from "next/link";
+import { allDonationRequest, allUser, getFunding } from "@/lib/api";
 
-const Banner = () => {
+const Banner = async () => {
+  const donations = await allUser();
+  const facilities = await allDonationRequest();
+  const totalFunding = await getFunding();
+  const allReq = facilities.length;
+  const totalDonar = donations.length || 20;
+
+  const totalAmount = totalFunding.reduce((total, item) => {
+  return total + item.amount;
+}, 0);
   const stats = [
     {
       icon: <FaUsers />,
-      count: "10K+",
-      label: "Donors",
+      count: totalDonar,
+      label: "Total Donor",
     },
     {
       icon: <FaHandHoldingHeart />,
-      count: "3K+",
-      label: "Requests",
+      count: `${totalAmount}$`,
+      label: "Total Funding",
     },
     {
       icon: <FaHeartbeat />,
-      count: "8K+",
-      label: "Lives Saved",
-    },
-    {
-      icon: <FaTint />,
-      count: "50K+",
-      label: "Happy People",
+      count: allReq,
+      label: "Total Request",
     },
   ];
 
@@ -60,7 +65,7 @@ const Banner = () => {
               Join as a donor
             </Button></Link>
 
-            <Link href={'/'}><Button variant="bordered" size="lg">
+            <Link href={'/search'}><Button className={'border'} variant="bordered" size="lg">
               Search Donors
             </Button></Link>
           </div>
@@ -80,7 +85,7 @@ const Banner = () => {
       </div>
 
       {/* Stats Section */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-5 my-10">
+      <div className="grid grid-cols-2 lg:grid-cols-3 gap-5 my-10 mx-auto">
         {stats.map((item, index) => (
           <div
             key={index}

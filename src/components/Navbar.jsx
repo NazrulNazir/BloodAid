@@ -25,8 +25,7 @@ export default function NavBar() {
   const { data } = useSession();
   const user = data?.user;
 
-  const handleLogout = () => {
-  };
+  const handleLogout = () => {};
 
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
@@ -110,13 +109,14 @@ export default function NavBar() {
       <nav className="max-w-7xl mx-auto">
         <header className="flex h-16 items-center justify-between px-6">
           {/* Logo */}
-          <div className="flex items-center gap-3">
-            <FaHeartbeat className="text-red-500 text-xl" />
-            <p className="font-bold text-lg text-[#1E3A8A]">
-              Blood<span className="text-red-600">Aid</span>
-            </p>
-          </div>
-
+          <Link href={"/"}>
+            <div className="flex items-center gap-3">
+              <FaHeartbeat className="text-red-500 text-xl" />
+              <p className="font-bold text-lg text-[#1E3A8A]">
+                Blood<span className="text-red-600">Aid</span>
+              </p>
+            </div>
+          </Link>
           {/* Desktop Menu */}
           <ul className="hidden md:flex items-center gap-6 text-gray-700 font-medium">
             {navItems.map((item) => (

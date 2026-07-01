@@ -1,7 +1,18 @@
 import { FiUsers } from "react-icons/fi";
 import { FaHandHoldingUsd, FaTint } from "react-icons/fa";
+import { allDonationRequest, allUser, getFunding } from "@/lib/api";
 
-export default function DashboardHome() {
+export default async function DashboardHome() {
+    const donations = await allUser();
+    const facilities = await allDonationRequest();
+    const totalFunding = await getFunding();
+    const allReq = facilities.length;
+    const totalDonar = donations.length || 20;
+  
+    const totalAmount = totalFunding.reduce((total, item) => {
+    return total + item.amount;
+  }, 0);
+
   return (
     <section className="p-6 bg-[#fafafa] min-h-screen">
       {/* Header */}
@@ -32,7 +43,7 @@ export default function DashboardHome() {
           <div className="mt-10">
             <p className="text-gray-400 font-medium">Total Donors</p>
 
-            <h2 className="text-5xl font-black mt-2">16</h2>
+            <h2 className="text-5xl font-black mt-2">{totalDonar}</h2>
           </div>
         </div>
 
@@ -51,7 +62,7 @@ export default function DashboardHome() {
           <div className="mt-10">
             <p className="text-gray-400 font-medium">Total Funding</p>
 
-            <h2 className="text-5xl font-black mt-2">$12,886</h2>
+            <h2 className="text-5xl font-black mt-2">{totalAmount} <span className="text-blue-500">$</span></h2>
           </div>
         </div>
 
@@ -70,7 +81,7 @@ export default function DashboardHome() {
           <div className="mt-10">
             <p className="text-gray-400 font-medium">Blood Requests</p>
 
-            <h2 className="text-5xl font-black mt-2">20</h2>
+            <h2 className="text-5xl font-black mt-2">{allReq}</h2>
           </div>
         </div>
       </div>

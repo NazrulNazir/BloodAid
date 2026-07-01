@@ -26,6 +26,18 @@ export const getUpazila = async () => {
   const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/upazilas`);
   return res.json();
 };
+export const getFunding = async () => {
+  const { token } = await auth.api.getToken({
+    headers: await headers(),
+  });
+  const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/funding`,{
+      cache: "no-store",
+      headers: {
+        authorization: `Bearer ${token}`,
+      },
+    },);
+  return res.json();
+};
 
 // gmail last 3 create data match kora gula paya jabe
 export const recentDonationRequest = async () => {
@@ -176,3 +188,30 @@ export const myDonationRequestDetails = async (donateId, email) => {
 //   const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/${email}/${editDonationReq}`);
 //   return res.json();
 // }
+
+
+
+export const searchDonors = async ({
+  bloodGroup,
+  district,
+  upazila,
+}) => {
+  const params = new URLSearchParams({
+    bloodGroup,
+    district,
+    upazila,
+  });
+
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_SERVER_URL}/search-donors?${params}`
+  );
+
+  return res.json();
+};
+
+
+/// search
+export const getAllDonor = async ()=>{
+  const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/search-donors`);
+  return res.json();
+}

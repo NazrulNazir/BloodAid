@@ -1,4 +1,5 @@
 'use client'
+import StatusInprogress from "@/components/StatusInprogress";
 import { getDonationRequestDetails } from "@/lib/api";
 import { useParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
@@ -206,7 +207,7 @@ const TestDetails = () => {
 
                 {/* Client Component */}
                 <div className="mt-12">
-                  {/* <StatusInprogress donateReqId={donateReqId} /> */}
+                  <StatusInprogress donateReqId={donationId} />
                 </div>
               </div>
             </div>

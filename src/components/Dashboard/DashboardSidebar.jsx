@@ -1,27 +1,26 @@
-import { ComponentType, SVGProps } from "react";
+"use client";
 import {
   Bars,
-  Bell,
   Circles4Square,
-  Envelope,
-  Gear,
-  House,
-  Magnifier,
   Person,
 } from "@gravity-ui/icons";
 import { Button, Drawer } from "@heroui/react";
 import { BiSolidDonateHeart } from "react-icons/bi";
 import { IoCreate } from "react-icons/io5";
 import { HiUserGroup } from "react-icons/hi";
-import { auth } from "@/lib/auth";
-import { headers } from "next/headers";
 import Link from "next/link";
+import Image from "next/image";
+import toast from "react-hot-toast";
+import { signOut } from "better-auth/api";
+import { useSession } from "@/lib/auth-client";
 
-const DashboardSidebar = async () => {
-  const session = await auth.api.getSession({
-    headers: await headers(),
-  });
-  const user = session?.user;
+const DashboardSidebar = () => {
+  // const session = await auth.api.getSession({
+  //   headers: await headers(),
+  // });
+  const { data } = useSession();
+  const user = data?.user;
+  // const user = session?.user;
   const admin = [
     { icon: Circles4Square, label: "Dashboard", link: "/dashboard/admin" },
     { icon: Person, label: "Profile", link: "/dashboard/profile" },
@@ -77,25 +76,52 @@ const DashboardSidebar = async () => {
       </Button>
       <aside>
         <nav className="hidden sm:flex flex-col justify-between pb-10 gap-2 w-65 sticky top-0 h-screen">
-         <div>
-           <Link href={`/`} className="text-4xl text-center font-bold px-3 py-4  mb-2 shadow-sm block">
+          <div>
+            <Link
+              href={`/`}
+              className="text-4xl text-center font-bold px-3 py-4  mb-2 shadow-sm block"
+            >
               Blood<span className="text-red-500">Aid</span>
             </Link>
             {menuItems.map((item) => (
+              <Link
+                key={item.label}
+                href={item.link}
+                className="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm hover:bg-red-200/50 hover:text-red-500 mx-2"
+              >
+                <item.icon className="size-5" />
+                {item.label}
+              </Link>
+            ))}
+          </div>
+          <div className="w-50 pl-4">
             <Link
-              key={item.label}
-              href={item.link}
-              className="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm hover:bg-red-200/50 hover:text-red-500 mx-2"
+              href={"/dashboard/donor/profile"}
+              className="hover:text-purple-600 font-semibold"
             >
-              <item.icon className="size-5" />
-              {item.label}
+              <div className="flex gap-2 items-center">
+                <Image
+                  width={70}
+                  height={70}
+                  src={user?.image}
+                  alt="user"
+                  className="rounded-full w-15 h-15"
+                ></Image>
+                <div className="pb-4">
+                  <h4 className="text-sm font-semibold">{user?.name}</h4>
+                  <p className="text-xs text-default-500">{user?.email}</p>
+                </div>
+              </div>
             </Link>
-          ))}
-         </div>
-        <div className="pl-5">
-          <Link href={'/dashboard/donor/profile'} className="hover:text-purple-600 font-semibold">Profile</Link>
-          <p>{user?.role}</p>
-        </div>
+            <Button className={'mt-3 rounded-md w-full'} variant="danger"
+              onClick={() => {
+                signOut();
+                toast.success("Logout successfully..");
+              }}
+            >
+              Logout
+            </Button>
+          </div>
         </nav>
       </aside>
       <Drawer.Backdrop>

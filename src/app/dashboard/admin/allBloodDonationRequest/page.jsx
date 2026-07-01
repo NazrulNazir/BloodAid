@@ -1,18 +1,49 @@
+"use client";
+import FilterFacilitiesData from "@/components/FilterFacilities";
 import { allDonationRequest, donationRequest } from "@/lib/api";
 import { Button, Popover, Table } from "@heroui/react";
 import Link from "next/link";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { IoLocationOutline } from "react-icons/io5";
 
-const AllDonationRequest = async () => {
-  const donations = await allDonationRequest();
+const AllDonationRequest = () => {
+  const [donations, setDonations] = useState([]);
+  // const [search, setSearch] = useState("");
+  const [sport, setSport] = useState("");
+
+  // const donations = await allDonationRequest();
+
+  useEffect(() => {
+    const loadData = async () => {
+      const facilities = await allDonationRequest();
+      setDonations(facilities);
+    };
+
+    loadData();
+  }, []);
+
+  // Search + Filter
+  const filteredDonations = donations.filter((facility) => {
+    // const matchSearch = facility.name
+    //   .toLowerCase()
+    //   .includes(search.toLowerCase());
+
+    const matchSport = sport === "" ? true : facility.donationStatus === sport;
+
+    return matchSport;
+  });
+
   return (
     <div className="mt-15 pr-3 px-10">
       <div className="max-w-4xl mx-auto">
-        <h1 className="text-4xl font-bold mb-8 text-gray-700 mt-5">
+        <div className="flex justify-between">
+          <h1 className="text-4xl font-bold mb-8 text-gray-700 mt-5">
           All Donation Requests
         </h1>
+        <FilterFacilitiesData setSport={setSport}/>
+        </div>
+
         <Table className=" bg-red-100">
           <Table.ScrollContainer>
             <Table.Content aria-label="Team members" className="min-w-150 ">
@@ -26,7 +57,7 @@ const AllDonationRequest = async () => {
                 <Table.Column>Actions</Table.Column>
               </Table.Header>
               <Table.Body>
-                {donations.map((item) => (
+                {filteredDonations.map((item) => (
                   <Table.Row key={item._id}>
                     <Table.Cell
                       className={"font-semibold text-gray-500 bg-red-50"}
@@ -67,29 +98,38 @@ const AllDonationRequest = async () => {
                     <Table.Cell
                       className={"font-semibold text-gray-500 bg-red-50"}
                     >
-                        <Popover>
-                              <Button isIconOnly variant="tertiary" className={'bg-background'}>
-                                <BsThreeDotsVertical />
-                              </Button>
-                              <Popover.Content className="max-w-64 text-slate-300" offset={10}>
-                                <Popover.Dialog>
-                                  <Popover.Arrow />
-                                  <Popover.Heading><p 
-                                //   href={`/dashboard/donor/myDonationRequest/${item._id}`}
-                                  >Control Pannel
-                                  </p>
-                                  </Popover.Heading>
-                                  <div className="mt-2 text-sm text-slate-500 hover:text-slate-600 font-semibold block">
-                                    {/* <RecentDonationDelete donationDelete = {donationDelete}/> */}
-                                    <p 
-                                    // href={`/dashboard/donor/myDonationRequest/Edit/${item._id}`}
-                                    > 
-                                    Status Finalized
-                                    </p>
-                                  </div>
-                                </Popover.Dialog>
-                              </Popover.Content>
-                            </Popover>
+                      <Popover>
+                        <Button
+                          isIconOnly
+                          variant="tertiary"
+                          className={"bg-background"}
+                        >
+                          <BsThreeDotsVertical />
+                        </Button>
+                        <Popover.Content
+                          className="max-w-64 text-slate-300"
+                          offset={10}
+                        >
+                          <Popover.Dialog>
+                            <Popover.Arrow />
+                            <Popover.Heading>
+                              <p
+                              //   href={`/dashboard/donor/myDonationRequest/${item._id}`}
+                              >
+                                Control Pannel
+                              </p>
+                            </Popover.Heading>
+                            <div className="mt-2 text-sm text-slate-500 hover:text-slate-600 font-semibold block">
+                              {/* <RecentDonationDelete donationDelete = {donationDelete}/> */}
+                              <p
+                              // href={`/dashboard/donor/myDonationRequest/Edit/${item._id}`}
+                              >
+                                Status Finalized
+                              </p>
+                            </div>
+                          </Popover.Dialog>
+                        </Popover.Content>
+                      </Popover>
                     </Table.Cell>
                   </Table.Row>
                 ))}
